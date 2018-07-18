@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>edit//users</title>
 </head>
 <body>
   <header>
-    <h1>Edit <%=user.username%></h1>
+<h1>Edit your info</h1>
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/users">Users Index</a></li>
+        <!-- <li><a href="/users">Users Index</a></li> -->
       </ul>
     </nav>
+
+    <h3><%=user.username%>'s info</h3>
+
   </header><!-- /header -->
   <main>
     <h2>User attributes</h2>
     <form action="/users/<%=user.id%>?_method=PUT" method="POST">
       <input type="text" name="username" value="<%=user.username%>"><br>
-      <button type="submit">Update username</button>
+      <input type="text" name="password" value="<%=user.password%>"><br>
+      <button type="submit">Update User</button>
     </form>
   </main>
 </body>

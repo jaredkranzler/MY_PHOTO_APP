@@ -30,6 +30,7 @@ router.get('/', async (req, res, next)=>{
 // NEW
 router.get('/new', (req, res)=>{
   User.find({}, (err, allUsers) => {
+    console.log('should be publishing photo here')
     res.render('photos/new.ejs', {
       users: allUsers
     });
@@ -84,7 +85,7 @@ router.get('/:id/edit', async (req, res) => {
 
 //-------------------------------------------------------------------------
 //POST (CREATE)
-router.post('/', async (req, res)=>{
+router.post('/', async (req, res, next)=>{
 
   try {
 
@@ -98,7 +99,7 @@ router.post('/', async (req, res)=>{
 
   } catch (err) {
 
-    res.send(err)
+    next(err, 'should be publishing photo')
 
     }
 });
