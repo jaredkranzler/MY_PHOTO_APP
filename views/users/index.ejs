@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <header>
+    <h1>Users</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/users/new">Create a new user</a></li>
+      </ul>
+    </nav>
+  </header><!-- /header -->
+  <main>
+    <h2>List of Users</h2>
+    <ul>
+      <% for (let i = 0; i < users.length; i++){%>
+           <li>
+              <a href="/users/<%=users[i].id%>">
+                <%= users[i].username %>
+              </a>
+           </li>
+      <%}%>
+    </ul>
+
+  </main>
+
+
+
+
+</body>
+</html>

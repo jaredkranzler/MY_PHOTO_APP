@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <header>
+      <h1>Edit <%=photo.title%>'s Info</h1>
+      <nav>
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/photos">Photos Index</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h2>Photo Attributes:</h2>
+      <form action="/photos/<%=photos._id%>?_method=PUT" method="post">
+        <select name="userId">
+          <% for(let i = 0; i < users.length; i++){ %>
+            <option value="<%=users[i].id%>"
+
+              <% if(users[i]._id.toString() === photoUser._id.toString()){%>
+                selected
+              <% }%>
+              > <%=users[i].name%></option>
+          <% } %>
+        </select>
+
+
+        <input type="text" name="title" value="<%=photo.title%>"/><br/>
+        <textarea name="body"><%=photo.body%></textarea><br/>
+        <input type="submit" value="Update Photo"/>
+      </form>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <header>
+    <h1>Show Page for <%=user.username%></h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/users">User Index</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>photos uploaded by this artist:</h2>
+      <ul>
+        <% for (let i = 0; i < user.photos.length; i++){ %>
+           <li><a href="/photos/<%=user.photos[i].id%>"><%=user.photos[i].title%></a></li>
+        <%} %>
+      </ul>
+    </section>
+
+
+    <section>
+      <h2>User Attributes</h2>
+      <ul>
+        <li>Username: <%=user.username%></li>
+      </ul>
+    </section>
+
+    <section>
+      <a href="/users/<%=user.id%>/edit">Edit</a>
+    </section>
+
+    <section>
+      <form action="/users/<%=user.id%>?_method=DELETE" method="POST">
+        <button type="submit">Delete User</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
