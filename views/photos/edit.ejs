@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>edit/photo</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
   </head>
   <body>
     <header>
@@ -18,14 +20,22 @@
       </nav>
     </header>
     <main>
-<!--       <h2>Photo Attributes:</h2> -->
+
       <form action="/photos/<%=photo._id%>?_method=PUT" method="post">
 
 
         <input type="text" name="title" value="<%=photo.title%>" placeholder="title"/><br/>
+        <img src="<%=photo.url%>">
+        <input type="url" name="photo.url" value="<%=photo.url%>" placeholder="url"/><br/>
+
         <textarea name="body" placeholder=""><%=photo.body%></textarea><br/>
         <input type="submit" value="Update Photo"/>
       </form>
     </main>
+
+
+
+
+    <script type="text/javascript" src="/js/app.js"></script>
   </body>
 </html>

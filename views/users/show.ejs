@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>show/users</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 </head>
 <body>
   <header>
@@ -26,7 +28,7 @@
         <% for (let i = 0; i < user.photos.length; i++){ %>
           <li><a href="/photos/<%=user.photos[i].id%>"><%=user.photos[i].title%></a></li>
           <li><a href="/photos/<%=user.photos[i].id%>"><img src="<%=user.photos[i].url%>"></a></li>
-          <li><a href="/photos/<%=user.photos[i].id%>"><%=user.photos[i].body%></a></li>
+          <li><%=user.photos[i].body%></a></li>
         <%} %>
       </ul>
     </section>
@@ -43,5 +45,10 @@
       </form>
     </section>
   </main>
+
+
+
+
+  <script type="text/javascript" src="/js/app.js"></script>
 </body>
 </html>

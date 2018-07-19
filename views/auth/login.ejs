@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>auth</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+</head>
+<body>
+  <h4>Login</h4>
+  <form action="/auth/login" method="POST"> 
+    Username: <input type="text" name="username" placeholder="username">
+    Password: <input type="password" name="password" placeholder="password">
+    <button type="submit">Login</button>
+  </form>
+
+
+ <h4>Register</h4>
+  <form action="/auth/register" method="POST"> 
+    Username: <input type="text" name="username" placeholder="username">
+    Password: <input type="password" name="password" placeholder="password">
+    <button type="submit">Register</button>
+  </form>
+
+  <h5><%= message%></h5>
+
+<script type="text/javascript" src="/js/app.js"></script>
+</body>
+</html>
+
+

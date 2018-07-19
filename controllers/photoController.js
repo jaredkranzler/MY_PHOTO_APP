@@ -10,7 +10,29 @@ const User  = require('../models/users');
 
 //-------------------------------------------------------------------------
 // INDEX
-router.get('/', async (req, res, next)=>{
+router.get('/', async (req, res)=>{
+
+  try {
+
+    if (req.session.loggedIn === true) {
+      const foundPhotos = await Photo.find({});
+      res.render('photos/index.ejs', {
+        photos: foundPhotos,
+        username: req.session.username
+      });
+
+
+    } else {
+
+      req.session.message = 'You have to be logged innnnnn'
+      res.redirect('/auth')
+    }
+
+  } 
+  catch (err) {
+    console.error(err, "photo index error");
+    next(err)
+  }
 
   try {
 
@@ -20,7 +42,7 @@ router.get('/', async (req, res, next)=>{
     });
   } catch (err){
 
-    next(err)
+    res.send(err)
 
     }
 });
@@ -42,18 +64,23 @@ router.get('/new', (req, res)=>{
 //-------------------------------------------------------------------------
 // Display the User with a Link on the Photo show page
 // SHOW
-router.get('/:id', (req, res)=>{
-  Photo.findById(req.params.id, (err, foundPhoto)=>{
-    // WE need to find The user of the photo
-    User.find({'photos.id': req.params.id}, (err, foundUser) =>{
-      console.log(foundPhoto, "===============================")
-      res.render('photos/show.ejs', {
+router.get('/:id', async (req, res)=>{
+
+    try {
+
+     const foundPhoto = await Photo.findById(req.params.id);
+     const foundUser = await User.find({'photos._id': req.params.id});
+        res.render('photos/show.ejs', {
           photo: foundPhoto,
-          user: foundUser
+          user: foundUser[0]
       });
-    });
-  });
+    } catch
+     (err) {
+
+      res.send(err)
+    }
 });
+
 
 
 //-------------------------------------------------------------------------
@@ -85,12 +112,12 @@ router.get('/:id/edit', async (req, res) => {
 
 //-------------------------------------------------------------------------
 //POST (CREATE)
-router.post('/', async (req, res, next)=>{
-
+router.post('/', async (req, res)=>{
   try {
 
     // Create a new Photo , Push a copy into the Users photo's array
     const foundUser = await User.findById(req.body.userId);
+  
     // foundUser is the document, with user's photos array
     const createdPhoto = await Photo.create(req.body);
     foundUser.photos.push(createdPhoto);
@@ -99,7 +126,7 @@ router.post('/', async (req, res, next)=>{
 
   } catch (err) {
 
-    next(err, 'should be publishing photo')
+    res.send(err)
 
     }
 });
@@ -108,7 +135,7 @@ router.post('/', async (req, res, next)=>{
 
 //-------------------------------------------------------------------------
 // DELETE
-router.delete('/:id', async (req, res, next)=>{
+router.delete('/:id', async (req, res)=>{
 
   try {
 
@@ -123,7 +150,7 @@ router.delete('/:id', async (req, res, next)=>{
 
   } catch (err){
 
-    next(err)
+    res.send(err)
 
     }
 });
@@ -133,30 +160,21 @@ router.delete('/:id', async (req, res, next)=>{
 // PUT (UPDATE)
 // UPDATE AND Photo WE ALL WANT TO UPDATE THE Users Photo LIST
 router.put('/:id', async (req, res)=>{
-
+  
   try {
 
     const updatedPhoto = await Photo.findByIdAndUpdate(req.params.id, req.body, {new: true});
+
     // Find the user with that photo
     const foundUser = await User.findOne({'photos._id': req.params.id});
-    // Saying there is a new user
-    if(foundUser._id.toString() !== req.body.userId){
-      foundUser.photos.id(req.params.id).remove();
-      const savedFoundUser = await foundUser.save();
-      // Find the new user and and the photo to thier array
-      const newUser = await User.findById(req.body.userId)
-      newUser.photos.push(updatedPhoto);
-      const savedFoundUserNew = await newUser.save();
-      res.redirect('/photos');
-    } 
-    else {
+
       // If the user is the same as it was before
       // first find the photo and removing, req.params.id = photos id
       foundUser.photos.id(req.params.id).remove();
       foundUser.photos.push(updatedPhoto);
       const data = await foundUser.save();
       res.redirect('/photos');
-    }
+    
 
   } catch (err) {
 

@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>show/photo</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
   </head>
   <body>
     <header>
@@ -18,7 +20,7 @@
     </header>
     <main>
       <section>
-        <h2>Posted By: <%=user.username%></h2>
+        <h2>Posted By: <a href="/users/<%=user._id%>"><%=user.username%></a> </h2>
         <h1><%=photo.title%></h1>
           <!-- insert date here -->
    <!--        <small>by: <a href="/users/<%=user._id%>"><%=user.username%></a></small> -->
@@ -38,5 +40,10 @@
       </section>
 
     </main>
+
+
+
+
+    <script type="text/javascript" src="/js/app.js"></script>
   </body>
 </html>
