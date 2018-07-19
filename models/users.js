@@ -7,4 +7,6 @@ const userSchema = mongoose.Schema({
   photos: [Photo.schema]
 });
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;

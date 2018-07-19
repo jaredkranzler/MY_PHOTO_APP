@@ -17,6 +17,7 @@ router.get('/', async (req, res, next) => {
     const foundUsers = await User.find({})
     res.render('users/index.ejs', {
       users: foundUsers
+
     });    
   } catch (err){
     console.log("is there an error index route catch", err)

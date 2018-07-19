@@ -45,8 +45,8 @@ router.get('/new', (req, res)=>{
 router.get('/:id', (req, res)=>{
   Photo.findById(req.params.id, (err, foundPhoto)=>{
     // WE need to find The user of the photo
-    User.findOne({'photos._id': req.params.id}, (err, foundUser) =>{
-
+    User.find({'photos.id': req.params.id}, (err, foundUser) =>{
+      console.log(foundPhoto, "===============================")
       res.render('photos/show.ejs', {
           photo: foundPhoto,
           user: foundUser
@@ -90,7 +90,7 @@ router.post('/', async (req, res, next)=>{
   try {
 
     // Create a new Photo , Push a copy into the Users photo's array
-    const foundUser = await User.findById(req.body.useerId);
+    const foundUser = await User.findById(req.body.userId);
     // foundUser is the document, with user's photos array
     const createdPhoto = await Photo.create(req.body);
     foundUser.photos.push(createdPhoto);
@@ -108,7 +108,7 @@ router.post('/', async (req, res, next)=>{
 
 //-------------------------------------------------------------------------
 // DELETE
-router.delete('/:id', async (req, res)=>{
+router.delete('/:id', async (req, res, next)=>{
 
   try {
 
@@ -123,7 +123,7 @@ router.delete('/:id', async (req, res)=>{
 
   } catch (err){
 
-    res.send(err)
+    next(err)
 
     }
 });

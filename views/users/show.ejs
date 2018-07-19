@@ -22,23 +22,16 @@
 
 
     <section>
-      <!-- <h2>photos uploaded by this artist:</h2> -->
       <ul>
         <% for (let i = 0; i < user.photos.length; i++){ %>
           <li><a href="/photos/<%=user.photos[i].id%>"><%=user.photos[i].title%></a></li>
-          <li><a href="/photos/<%=user.photos[i].id%>"><%=user.photos[i].url%></a></li>
+          <li><a href="/photos/<%=user.photos[i].id%>"><img src="<%=user.photos[i].url%>"></a></li>
           <li><a href="/photos/<%=user.photos[i].id%>"><%=user.photos[i].body%></a></li>
         <%} %>
       </ul>
     </section>
 
-<!-- 
-    <section>
-      <h2>User Attributes</h2>
-      <ul>
-        <li>Username: <%=user.username%></li>
-      </ul>
-    </section> -->
+
 
     <section>
       <a href="/users/<%=user.id%>/edit">Edit</a>

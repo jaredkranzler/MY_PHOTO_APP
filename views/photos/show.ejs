@@ -5,7 +5,6 @@
   </head>
   <body>
     <header>
-      <h1><%=photo.title%></h1>
       <nav>
         <ul>
           <li>
@@ -19,19 +18,25 @@
     </header>
     <main>
       <section>
-          <h1><%=photo.title%></h1>
-          <small>by: <a href="/users/<%=user._id%>"><%=user.username%></a></small>
-
-          <a href="/photos/<%=photo._id%>/edit">Edit</a>
+        <h2>Posted By: <%=user.username%></h2>
+        <h1><%=photo.title%></h1>
+          <!-- insert date here -->
+   <!--        <small>by: <a href="/users/<%=user._id%>"><%=user.username%></a></small> -->
       </section>
-      <section>
-          <form action="/photos/<%=photo._id%>?_method=DELETE" method="post">
-              <input type="submit" value="Delete Photo"/>
-          </form>
-      </section>
+      <img src="<%=photo.url%>">
       <section>
         <%=photo.body%>
       </section>
+
+      <section>
+        
+          <a href="/photos/<%=photo._id%>/edit">Edit My Post</a>
+          <form action="/photos/<%=photo._id%>?_method=DELETE" method="post">
+              <input type="submit" value="Delete My Post"/>
+          </form>
+
+      </section>
+
     </main>
   </body>
 </html>
