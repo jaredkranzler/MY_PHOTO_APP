@@ -33,18 +33,6 @@ router.get('/', async (req, res)=>{
     console.error(err, "photo index error");
     next(err)
   }
-
-  try {
-
-    const foundPhotos = await Photo.find({});
-    res.render('photos/index.ejs', {
-      photos: foundPhotos
-    });
-  } catch (err){
-
-    res.send(err)
-
-    }
 });
 
 
